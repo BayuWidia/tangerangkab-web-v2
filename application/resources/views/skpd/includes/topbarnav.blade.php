@@ -26,8 +26,8 @@
           <li class="search-icon"><i class="fa fa-search"></i></li>
         </ul>
         <div class="search">
-          <form role="form">
-            <input type="text" class="search-form" autocomplete="off" placeholder="Cari">
+          <form role="form" action="{{route('skpdberita.search', $singkatan)}}" method="get">
+            <input type="text" class="search-form" autocomplete="off" placeholder="Cari" name="param">
           </form>
         </div> <!--/.search-->
       </div><!-- searchNlogin -->

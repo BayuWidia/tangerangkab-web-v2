@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Berita extends Model
 {
+  use Searchable;
+
   protected $table = 'berita';
 
   protected $fillable = [
@@ -20,5 +23,10 @@ class Berita extends Model
   public function masterskpd()
   {
     return $this->belongsTo('App\Models\KategoriBerita', 'id_skpd');
+  }
+
+  public function searchableAs()
+  {
+      return 'berita';
   }
 }

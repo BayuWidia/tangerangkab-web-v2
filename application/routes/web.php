@@ -194,6 +194,7 @@ Route::get('{singkatan}/profile-skpd/show/{id}/{id_skpd}', 'ProfileSKPDControlle
 
 Route::get('{singkatan}/menu-konten-skpd/show-berita/{id}', 'MenuKontenSKPDController@showBerita');
 Route::get('{singkatan}/berita-skpd/show', 'BeritaController@showberitaskpdbykategori');
+Route::get('{singkatan}/berita-skpd/search-news', 'BeritaController@SKPDsearchByParam')->name('skpdberita.search');
 Route::get('{singkatan}/berita-skpd/show/{id}', 'BeritaController@showberitaskpdparam');
 
 Route::get('{singkatan}/anggaran/view', 'ProfileSKPDController@viewAnggaran')->name('skpdanggaran.view');

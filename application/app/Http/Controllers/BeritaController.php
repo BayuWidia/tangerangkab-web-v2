@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use DB;
+use Input;
 use App\Models\Menu;
 use App\Models\Berita;
 use App\Models\MediaSosial;
@@ -16,6 +17,115 @@ use App\Http\Controllers\Controller;
 
 class BeritaController extends Controller
 {
+  public function SKPDsearchByParam($singkatan)
+  {
+    // SEARCH DATA WITH LARAVEL SCOUT
+    $param = Input::get('param');
+    $getdata = Berita::search($param)->where('flag_publish', 1)->paginate(10);
+
+    $getidskpd = MasterSKPD::where('singkatan', $singkatan)->first();
+    if(!$getidskpd) {
+      return view('errors.404');
+    }
+
+    // NAVBAR //
+    $getsekilastangerang = Berita::join('kategori_berita', 'kategori_berita.id', '=', 'berita.id_kategori')
+      ->select(DB::raw('distinct(kategori_berita.nama_kategori)'), 'kategori_berita.id', 'berita.id_skpd as id_skpd_berita')
+      ->where('berita.id_skpd', $getidskpd->id)
+      ->where('kategori_berita.flag_utama', 1)
+      ->get();
+
+    $getberita = Berita::join('kategori_berita', 'kategori_berita.id', '=', 'berita.id_kategori')
+      ->select(DB::raw('distinct(kategori_berita.nama_kategori)'), 'kategori_berita.id', 'berita.id_skpd as id_skpd_berita')
+      ->where('berita.id_skpd', $getidskpd->id)
+      ->where('kategori_berita.flag_utama', 0)
+      ->get();
+
+    $getrandom = Berita::join('kategori_berita', 'kategori_berita.id', '=', 'berita.id_kategori')
+      ->select('*', 'berita.id as id_berita')
+      ->where('flag_utama', 0)
+      ->where('berita.id_skpd', '!=', null)
+      // ->where('flag_publish', 1)
+      ->orderby(DB::raw('rand()'))
+      ->limit(5)
+      ->get();
+
+      // dd($getrandom);
+
+    // GET KATEGORI FOR FOOTER //
+    $getfooterkat = KategoriBerita::where('id_skpd', $getidskpd->id)->get();
+
+    // JEJARING //
+    $getjejaring = MasterSKPD::where('flag_skpd', 1)->get();
+
+    $getmenu = Menu::where([['level', 1], ['id_skpd', $getidskpd->id]])->get();
+    $getsubmenu = Menu::select('*', 'menu_konten.id as menukontenid')
+                    ->join('menu_konten', 'menu.id', '=', 'menu_konten.id_submenu')
+                    ->where([['level', 2], ['menu.id_skpd', $getidskpd->id]])->get();
+
+    $getanggaran = Anggaran::where([['flag_anggaran', 1], ['id_skpd', $getidskpd->id]])->get();
+
+    //GET sosmed
+    $getsosmed = MediaSosial::where('id_skpd', $getidskpd->id)->get();
+
+    if ($getdata->total() == 0) {
+        return view('errors.404');
+    } else {
+        return view('frontend.pages.searchresult', compact('param', 'getsosmed', 'getanggaran', 'singkatan', 'getmenu', 'getsubmenu', 'getjejaring', 'getfooterkat', 'getrandom','getdata','getsekilastangerang','getberita'));
+    }
+  }
+
+  public function searchByParam()
+  {
+    // SEARCH DATA WITH LARAVEL SCOUT
+    $param = Input::get('param');
+    $getdata = Berita::search($param)->where('flag_publish', 1)->paginate(10);
+
+    // NAVBAR //
+    $getsekilastangerang = Berita::join('kategori_berita', 'kategori_berita.id', '=', 'berita.id_kategori')
+      ->select(DB::raw('distinct(kategori_berita.nama_kategori)'), 'kategori_berita.id', 'berita.id_skpd as id_skpd_berita')
+      ->where('berita.id_skpd', null)
+      ->where('kategori_berita.flag_utama', 1)
+      ->get();
+
+    $getberita = Berita::join('kategori_berita', 'kategori_berita.id', '=', 'berita.id_kategori')
+      ->select(DB::raw('distinct(kategori_berita.nama_kategori)'), 'kategori_berita.id', 'berita.id_skpd as id_skpd_berita')
+      ->where('berita.id_skpd', null)
+      ->where('kategori_berita.flag_utama', 0)
+      ->get();
+
+    $getrandom = Berita::join('kategori_berita', 'kategori_berita.id', '=', 'berita.id_kategori')
+      ->select('*', 'berita.id as id_berita')
+      ->where('flag_utama', 0)
+      ->where('flag_publish', 1)
+      ->orderby(DB::raw('rand()'))
+      ->limit(6)
+      ->get();
+
+    // GET KATEGORI FOR FOOTER //
+    $getfooterkat = KategoriBerita::where('id_skpd', null)->where('flag_utama', 0)->get();
+
+    // JEJARING //
+    $getjejaring = MasterSKPD::where('flag_skpd', 1)->get();
+
+    $getmenu = Menu::where([['level', 1], ['id_skpd', null]])->get();
+    $getsubmenu = Menu::select('*', 'menu_konten.id as menukontenid')
+                    ->join('menu_konten', 'menu.id', '=', 'menu_konten.id_submenu')
+                    ->where([['level', 2], ['menu.id_skpd', null]])->get();
+
+    //GET ANGGARAN
+    $getanggaran = Anggaran::where('id_skpd', null)->get();
+
+    //GET sosmed
+    $getsosmed = MediaSosial::where('id_skpd', null)->get();
+
+    if ($getdata->total() == 0) {
+        return view('errors.404');
+    } else {
+        return view('frontend.pages.searchresult', compact('param', 'getsosmed', 'getanggaran', 'getmenu', 'getsubmenu', 'getjejaring', 'getfooterkat', 'getrandom','getdata','getsekilastangerang','getberita'));
+    }
+  }
+
   public function show($id)
   {
     // NAVBAR //
