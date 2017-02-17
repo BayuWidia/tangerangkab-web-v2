@@ -118,7 +118,7 @@
 						</ul>
 						<div class="search">
 							<form role="form"
-								@if ($singkatan)
+								@if (isset($singkatan))
 									action="{{route('skpdberita.search', $singkatan)}}"
 								@else
 									action="{{route('berita.search')}}"
