@@ -737,9 +737,9 @@
 												<ul class="list-inline social-icons">
 													@foreach ($getsosmed as $key)
 														@if (strpos($key->link_sosmed, 'http') !== false)
-															<li><a href="{{$key->link_sosmed}}" target="_blank"><i class="fa fa-{{$key->nama_sosmed}}"></i></a></li>
+															<li><a href="{{$key->link_sosmed}}" target="_blank" title="{{$key->link_sosmed}}"><i class="fa fa-{{$key->nama_sosmed}}"></i></a></li>
 														@else
-															<li><a href="http://{{$key->link_sosmed}}" target="_blank"><i class="fa fa-{{$key->nama_sosmed}}"></i></a></li>
+															<li><a href="http://{{$key->link_sosmed}}" target="_blank" title="http://{{$key->link_sosmed}}"><i class="fa fa-{{$key->nama_sosmed}}"></i></a></li>
 														@endif
 													@endforeach
 												</ul>

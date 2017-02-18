@@ -14,10 +14,11 @@ class MediaSosialController extends Controller
   public function index()
   {
     if (Auth::user()->level=="1") {
-      $getsosmed = MediaSosial::where('id_skpd', '')->get();
+      $getsosmed = MediaSosial::where('id_skpd', null)->get();
     } else {
-      $getsosmed = MediaSosial::where('id_skpd', Auth::user()->id_skpd)->get();
+      $getsosmed = MediaSosial::where('id_skpd', Auth::user()->masterskpd->id)->get();
     }
+
     return view('backend.pages.socialmedia')->with('getsosmed', $getsosmed);
   }
 
@@ -40,24 +41,23 @@ class MediaSosialController extends Controller
                         ->withInput();
         }
 
-    $check = MediaSosial::where('id_skpd', Auth::user()->id_skpd)
-              ->where('nama_sosmed', $request->sosmed)
-              ->count();
+    // $check = MediaSosial::where('id_skpd', Auth::user()->id_skpd)
+    //           ->where('nama_sosmed', $request->sosmed)
+    //           ->count();
 
     if (Auth::user()->level=="1") {
-      if ($check==0) {
+      // if ($check==0) {
         $set = new MediaSosial;
         $set->nama_sosmed = $request->sosmed;
         $set->link_sosmed = $request->link;
-        // $set->id_skpd = Auth::user()->id_skpd;
         $set->save();
 
         return redirect()->route('sosmed.index')->with('message', 'Berhasil memasukkan data media sosial.');
-      } else {
-        return redirect()->route('sosmed.index')->with('messagefail', 'Data telah tersedia pada database.');
-      }
+      // } else {
+      //   return redirect()->route('sosmed.index')->with('messagefail', 'Data telah tersedia pada database.');
+      // }
     } else {
-      if ($check==0) {
+      // if ($check==0) {
         $set = new MediaSosial;
         $set->nama_sosmed = $request->sosmed;
         $set->link_sosmed = $request->link;
@@ -65,9 +65,9 @@ class MediaSosialController extends Controller
         $set->save();
 
         return redirect()->route('sosmed.index')->with('message', 'Berhasil memasukkan data media sosial.');
-      } else {
-        return redirect()->route('sosmed.index')->with('messagefail', 'Data telah tersedia pada database.');
-      }
+      // } else {
+      //   return redirect()->route('sosmed.index')->with('messagefail', 'Data telah tersedia pada database.');
+      // }
     }
   }
 

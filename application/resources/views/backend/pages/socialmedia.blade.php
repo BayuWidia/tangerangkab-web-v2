@@ -126,6 +126,7 @@
                   <option value="google-plus">Google Plus</option>
                   <option value="linkedin">Linked In</option>
                   <option value="youtube">Youtube</option>
+                  <option value="instagram">Instagram</option>
                 </select>
                 @if ($errors->has('sosmed'))
                   <span class="help-block"><i>* {{$errors->first('sosmed')}}</i></span>
@@ -167,9 +168,12 @@
               </tr>
             </thead>
             <tbody>
+              @php
+                $no=1;
+              @endphp
               @foreach ($getsosmed as $key)
                 <tr>
-                  <td style="width:40px;">1</td>
+                  <td style="width:40px;">{{$no}}</td>
                   <td>{{$key->nama_sosmed}}</td>
                   <td>
                     @php
@@ -193,6 +197,9 @@
                     </span>
                   </td>
                 </tr>
+                @php
+                  $no++;
+                @endphp
               @endforeach
             </tbody>
           </table>
