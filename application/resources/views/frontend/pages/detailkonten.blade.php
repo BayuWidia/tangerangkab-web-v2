@@ -8,7 +8,7 @@
 	@endif
 @stop
 	@section('content')
-			<div class="container">
+		<div class="container">
 			<div class="page-breadcrumbs">
 				<h1 class="section-title">{{ $getdata->nama_kategori }}</h1>
 			</div>
@@ -72,8 +72,40 @@
 								</div>
 							</div>
 						</div><!--/#site-content-->
-					</div><!--/.col-sm-9 -->
 
+						<div class="comments-wrapper">
+							<div class="comments-box">
+								<h1 class="section-title title">Berikan Komentar Anda</h1>
+								<form id="comment-form" name="comment-form" action="{{route('user.postcomment')}}" method="post">
+									{{csrf_field()}}
+									<div class="row">
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label for="name">Nama</label>
+												<input type="text" name="name" class="form-control" >
+												<input type="hidden" name="id" value="{{$getdata->id_berita}}">
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label for="email">Email</label>
+												<input type="email" name="email" class="form-control" >
+											</div>
+										</div>
+										<div class="col-sm-12">
+											<div class="form-group">
+												<label for="comment" >Komentar Anda</label>
+												<textarea name="comment" id="comment" class="form-control" rows="5"></textarea>
+											</div>
+											<div class="text-center">
+												<button type="submit" class="btn btn-primary">Kirim</button>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div><!--/.col-sm-9 -->
 
 					<div class="col-sm-3">
 						<div id="sitebar">

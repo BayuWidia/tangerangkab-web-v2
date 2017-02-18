@@ -170,6 +170,7 @@ Route::group(['middleware' => ['isLoggedIn']], function () {
   Route::post('admin/edit-media-promosi', 'MediaPromosiController@edit')->name('media-promosi.edit');
   Route::get('admin/bind-media-promosi/{id}', 'MediaPromosiController@bind')->name('media-promosi.bind');
   Route::get('admin/publish-media-promosi/{id}', 'MediaPromosiController@publish')->name('media-promosi.publish');
+
 });
 
 ////////////////////////////////////// END OF BACKEND ROUTE //////////////////////////////////////
@@ -179,7 +180,7 @@ Route::group(['middleware' => ['isLoggedIn']], function () {
 Route::get('/', ['as' => 'index', 'uses' => 'WelcomePageController@index']);
 
 Route::get('sekilas-tangerang/show/{id}', 'ProfileController@show');
-Route::get('detail-konten/show-berita/{id}', 'ProfileController@showBerita');
+Route::get('detail-konten/show-berita/{id}', 'ProfileController@showBerita')->name('berita.detail-konten');
 
 Route::get('berita/show/{id}', 'BeritaController@show');
 Route::get('berita/search-news', 'BeritaController@searchByParam')->name('berita.search');
@@ -190,6 +191,8 @@ Route::get('menu-konten/show-berita/{id}', 'MenuKontenController@showBerita');
 Route::get('anggaran/view', 'ProfileController@viewAnggaran')->name('frontanggaran.view');
 Route::get('pegawai/view', 'ProfileController@viewpegawai')->name('frontpegawai.view');
 Route::get('video/view', 'ProfileController@viewvideo')->name('frontvideo.view');
+
+Route::post('berita/komentar', 'KomentarController@userPostComment')->name('user.postcomment');
 
 ////////////////////////////////////// END OF FRONTEND UTAMA ROUTE //////////////////////////////////////
 
