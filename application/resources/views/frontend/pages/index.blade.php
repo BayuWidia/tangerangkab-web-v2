@@ -263,11 +263,11 @@
 		</div><!--/.latest-news-wrapper-->
 	</div><!--/.section-->
 
+	@if(!$getaplikasi->isEmpty())
 	<div class="section">
 		<h1 class="section-title"><span>Sistem Informasi Tangerang Gemilang</span></h1>
 		<div class="latest-news-wrapper">
 			<div id="latest-news-aplikasi">
-				@if(!$getaplikasi->isEmpty())
 					@foreach($getaplikasi as $key)
 						<div class="post medium-post">
 							<div class="entry-header">
@@ -283,30 +283,35 @@
 							</div>
 						</div><!--/post-->
 					@endforeach
-				@else
-					<div class="post medium-post">
-						<div class="entry-header">
-							<div class="entry-thumbnail">
-								<img class="img-responsive" src="theme/images/post/1.jpg" alt="" />
+				</div>
+			</div><!--/.latest-news-wrapper-->
+		</div><!--/.section-->
+	@endif
+
+	@if(!$getstatistik->isEmpty())
+	<div class="section">
+		<h1 class="section-title"><span>Statistik Kabupaten Tangerang</span></h1>
+		<div class="latest-news-wrapper">
+			<div id="latest-news-statistik">
+					@foreach($getstatistik as $key)
+						<div class="post medium-post">
+							<div class="entry-header">
+								<div class="entry-thumbnail">
+									<img class="img-responsive" src="{{url('images')}}/{{$key->url_logo}}" alt="" />
+								</div>
 							</div>
-							<div class="catagory politics"><span><a href="#">Kosong</a></span></div>
-						</div>
-						<div class="post-content">
-							<div class="entry-meta">
-								<ul class="list-inline">
-									<li class="publish-date"><a href="#"><i class="fa fa-clock-o"></i> Nov 5, 2015 </a></li>
-									<li class="views"><a href="#"><i class="fa fa-eye"></i>15k</a></li>
-								</ul>
+							<div class="post-content" style="padding:5px 15px;">
+								<h2 class="entry-title">
+									<a href="{{$key->link_statistik}}" target="_blank">{{$key->nama_statistik}}</a>
+								</h2>
 							</div>
-							<h2 class="entry-title">
-								<a href="news-details.html">Belum ada berita</a>
-							</h2>
-						</div>
-					</div><!--/post-->
-				@endif
-			</div>
-		</div><!--/.latest-news-wrapper-->
-	</div><!--/.section-->
+						</div><!--/post-->
+					@endforeach
+				</div>
+			</div><!--/.latest-news-wrapper-->
+		</div><!--/.section-->
+	@endif
+
 
 	<div class="section">
 		<div class="latest-news-wrapper">

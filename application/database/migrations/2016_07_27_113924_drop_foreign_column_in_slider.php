@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePasswordResetsTable extends Migration
+class DropForeignColumnInSlider extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,10 @@ class CreatePasswordResetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('password_resets', function (Blueprint $table) {
-            $table->string('email')->index();
-            $table->string('token')->index();
-            $table->timestamp('created_at');
-        });
+      Schema::table('slider', function($table){
+        $table->dropForeign('slider_id_user_foreign');
+        $table->dropColumn('id_user');
+      });
     }
 
     /**
@@ -26,6 +25,6 @@ class CreatePasswordResetsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('password_resets');
+        //
     }
 }

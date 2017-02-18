@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -18,9 +17,15 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            //1:admin, 2:userskpd
+            $table->integer('level')->default(1);
+            //0:belum aktifasi, 1:sudah aktif
+            $table->integer('activated')->default(1);
+            $table->string('activation_code')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
+
     }
 
     /**
@@ -30,6 +35,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::drop('users');
     }
 }

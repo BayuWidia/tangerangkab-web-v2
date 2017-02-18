@@ -116,6 +116,14 @@ Route::group(['middleware' => ['isLoggedIn']], function () {
   Route::get('admin/publish-aplikasi/{id}', 'AplikasiController@publish')->name('aplikasi.publish');
   Route::get('admin/bind-aplikasi/{id}', 'AplikasiController@bind')->name('aplikasi.bind');
 
+  //Menu Statistik
+  Route::get('admin/kelola-statistik', 'StatistikController@index')->name('statistik.index');
+  Route::post('admin/store-statistik', 'StatistikController@store')->name('statistik.store');
+  Route::get('admin/delete-statistik/{id}', 'StatistikController@delete')->name('statistik.delete');
+  Route::post('admin/edit-statistik', 'StatistikController@edit')->name('statistik.edit');
+  Route::get('admin/publish-statistik/{id}', 'StatistikController@publish')->name('statistik.publish');
+  Route::get('admin/bind-statistik/{id}', 'StatistikController@bind')->name('statistik.bind');
+
   //Profile
   Route::get('admin/kelola-profile', 'UserProfileController@index')->name('profile.index');
   Route::post('admin/edit-profile', 'UserProfileController@edit')->name('profile.edit');

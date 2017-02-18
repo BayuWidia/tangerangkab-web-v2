@@ -155,6 +155,13 @@ jQuery(function ($) {
     stopOnHover	: true,
   });
 
+  $("#latest-news-statistik").owlCarousel({
+    items : 4,
+    pagination	: true,
+    autoPlay	: true,
+    stopOnHover	: true,
+  });
+
   $("#latest-news-aplikasi").owlCarousel({
     items : 4,
     pagination	: true,

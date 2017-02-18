@@ -104,6 +104,18 @@
         <li><a href="{{url('admin/kelola-aplikasi')}}"><i class="fa fa-circle-o"></i> Kelola Aplikasi</a></li>
       </ul>
     </li>
+    @if (Auth::user()->level=="1")
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-line-chart"></i>
+          <span>Link Statistik</span>
+          <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="{{url('admin/kelola-statistik')}}"><i class="fa fa-circle-o"></i> Kelola Statistik</a></li>
+        </ul>
+      </li>
+    @endif
     <li class="treeview">
       <a href="#">
         <i class="fa fa-money"></i>

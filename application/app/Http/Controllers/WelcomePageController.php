@@ -13,6 +13,7 @@ use App\Models\KategoriBerita;
 use App\Http\Controllers\Controller;
 use App\Models\Video;
 use App\Models\Aplikasi;
+use App\Models\Statistik;
 use App\Models\MediaPromosi;
 use App\Models\Menu;
 use App\Models\MediaSosial;
@@ -115,6 +116,9 @@ class WelcomePageController extends Controller
     //GET APLIKASI
     $getaplikasi = Aplikasi::where('id_skpd', null)->orderBy('created_at')->limit(12)->get();
 
+    //GET APLIKASI
+    $getstatistik = Statistik::where('id_skpd', null)->orderBy('created_at')->limit(12)->get();
+    
     //GET MENU
     $getmenu = Menu::where([['level', 1], ['id_skpd', null]])->get();
     $getsubmenu = Menu::select('*', 'menu_konten.id as menukontenid')
@@ -132,6 +136,7 @@ class WelcomePageController extends Controller
 
     return view('frontend.pages.index')
       ->with('getsosmed', $getsosmed)
+      ->with('getstatistik', $getstatistik)
       ->with('getanggaran', $getanggaran)
       ->with('getpromo', $getpromo)
       ->with('getmenu', $getmenu)

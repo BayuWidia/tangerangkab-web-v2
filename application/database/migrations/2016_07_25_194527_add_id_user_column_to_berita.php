@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePasswordResetsTable extends Migration
+class AddIdUserColumnToBerita extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,13 @@ class CreatePasswordResetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('password_resets', function (Blueprint $table) {
-            $table->string('email')->index();
-            $table->string('token')->index();
-            $table->timestamp('created_at');
-        });
+      Schema::table('berita', function($table){
+        $table->integer('id_user')->after('id_skpd')->unsigned()->nullable();
+      });
+
+      Schema::table('berita', function($table){
+        $table->foreign('id_user')->references('id')->on('users');
+      });
     }
 
     /**
@@ -26,6 +28,6 @@ class CreatePasswordResetsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('password_resets');
+        //
     }
 }

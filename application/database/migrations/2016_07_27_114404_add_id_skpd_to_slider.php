@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePasswordResetsTable extends Migration
+class AddIdSkpdToSlider extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,13 @@ class CreatePasswordResetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('password_resets', function (Blueprint $table) {
-            $table->string('email')->index();
-            $table->string('token')->index();
-            $table->timestamp('created_at');
-        });
+      Schema::table('slider', function($table){
+        $table->integer('id_skpd')->after('id')->unsigned()->nullable();
+      });
+
+      Schema::table('slider', function($table){
+        $table->foreign('id_skpd')->references('id')->on('master_skpd');
+      });
     }
 
     /**
@@ -26,6 +28,6 @@ class CreatePasswordResetsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('password_resets');
+        //
     }
 }
