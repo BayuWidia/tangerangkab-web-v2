@@ -46,6 +46,10 @@
         <li><a href="{{url('admin/lihat-info-utama')}}"><i class="fa fa-circle-o"></i> Seluruh Informasi</a></li>
         <li><a href="{{url('admin/tambah-info-utama')}}"><i class="fa fa-circle-o"></i> Tambah Informasi</a></li>
         <li><a href="{{route('kategoriutama.lihat')}}"><i class="fa fa-circle-o"></i> Tambah Kategori Informasi</a></li>
+        @if(Auth::user()->level=="1")
+         <li><a href="{{url('admin/kelola-chart-jumlah-berita')}}"><i class="fa fa-circle-o"></i> Chart Berita</a></li>
+         <li><a href="{{url('admin/kelola-chart-jumlah-kategori-berita')}}"><i class="fa fa-circle-o"></i> Chart Kategori Berita</a></li>
+        @endif
       </ul>
     </li>
     <li class="treeview">
@@ -69,6 +73,7 @@
         </a>
         <ul class="treeview-menu">
           <li><a href="{{url('admin/lihat-skpd')}}"><i class="fa fa-circle-o"></i> Kelola Data SKPD</a></li>
+          <li><a href="{{url('admin/kelola-chart-akun')}}"><i class="fa fa-circle-o"></i> Chart Akun SKPD</a></li>
         </ul>
       </li>
       <li class="treeview">

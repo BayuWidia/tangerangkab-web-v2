@@ -171,6 +171,25 @@ Route::group(['middleware' => ['isLoggedIn']], function () {
   Route::get('admin/bind-media-promosi/{id}', 'MediaPromosiController@bind')->name('media-promosi.bind');
   Route::get('admin/publish-media-promosi/{id}', 'MediaPromosiController@publish')->name('media-promosi.publish');
 
+  //All Chart
+  // Berita
+  Route::get('admin/kelola-chart-jumlah-berita', 'ChartBeritaController@jumlahberita')->name('chart.jumlah.berita.index');
+  Route::get('beritachart', 'ChartBeritaController@beritachart');
+  Route::get('admin/kelola-berita-skpd', 'ChartBeritaController@skpdberita');
+  Route::get('admin/kelola-berita-by-skpd/{id}', 'ChartBeritaController@beritabyskpd')->name('berita.by.skpd');
+  Route::get('countberitabyskpd', 'ChartBeritaController@countberitabyskpd');
+
+  // Kategori Berita
+  Route::get('admin/kelola-chart-jumlah-kategori-berita', 'ChartKategoriBeritaController@jumlahkategoriberita')->name('chart.jumlah.kategori.berita.index');
+  Route::get('kategoriberitachart', 'ChartKategoriBeritaController@kategoriberitachart');
+  Route::get('admin/kelola-kategori-berita-by-skpd/{id}', 'ChartKategoriBeritaController@kategoribyskpd')->name('kategori.by.skpd');
+  Route::get('countkategoriberitabyskpd', 'ChartKategoriBeritaController@countkategoriberitabyskpd');
+
+  // Akun
+  Route::get('admin/kelola-chart-akun', 'ChartAkunController@jumlahakun')->name('chart.jumlah.akun.index');
+  Route::get('akunchart', 'ChartAkunController@akunchart');
+  Route::get('countakunbyskpd', 'ChartAkunController@countakunbyskpd');
+
 });
 
 ////////////////////////////////////// END OF BACKEND ROUTE //////////////////////////////////////
